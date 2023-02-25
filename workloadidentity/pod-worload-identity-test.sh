@@ -80,7 +80,8 @@ metadata:
 spec:
   serviceAccountName: ${SERVICE_ACCOUNT_NAME}
   containers:
-    - image: ghcr.io/azure/azure-workload-identity/msal-go
+    # ghcr.io/azure/azure-workload-identity/msal-go
+    - image: cvvz/azid-go:latest-linux-amd64
       name: oidc
       env:
       - name: KEYVAULT_URL
