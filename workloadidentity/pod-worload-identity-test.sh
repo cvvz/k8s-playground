@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -x
 
 export CLUSTER_NAME="weizhichen-wi"
 export CLUSTER_RESOURCE_GROUP="weizhichen-wi"

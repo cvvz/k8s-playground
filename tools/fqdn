@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export CLUSTER="${1:-weizhichen}"
+kubectl config view -o json | jq 'reduce .clusters[] as $item (null; if $item.name != env.CLUSTER then . else $item end) | .cluster.server' | awk -F '[/:]' '{print $4}'

@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -e
+
+POD_NAME=$1
+NAMESPACE="${2:-default}"
+POD=$(kubectl get pod $POD_NAME -n $NAMESPACE -o json)
+POD_UID=$(echo $POD | jq -r ".metadata.uid")
+NODE=$(echo $POD | jq -r ".spec.nodeName")
+kubectl node-shell $NODE -- sh -c "cd /var/lib/kubelet/pods/$POD_UID/volumes && bash"
