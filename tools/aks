@@ -1,0 +1,14 @@
+#! /bin/bash
+
+set -x
+
+NAME="${1:-weizhichen}"
+
+shift
+
+az cloud set -n AzureCloud && \
+az account set --subscription 8ecadfc9-d1a3-4ea4-b844-0d9f87e4d7c8 && \
+az group create -l eastus -n ${NAME} && \
+az aks show -g ${NAME} -n ${NAME} || \
+az aks create -g ${NAME} -n ${NAME} --node-count 1 $@ && \
+az aks get-credentials -g ${NAME} -n ${NAME} --overwrite-existing

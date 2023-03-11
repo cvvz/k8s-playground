@@ -3,7 +3,16 @@
 set -e
 
 POD_NAME=$1
-NAMESPACE="${2:-default}"
+NAMESPACE="default"
+
+shift
+while getopts "n:" opt
+do
+   case "$opt" in
+      n ) NAMESPACE="$OPTARG" ;;
+   esac
+done
+
 POD=$(kubectl get pod $POD_NAME -n $NAMESPACE -o json)
 POD_UID=$(echo $POD | jq -r ".metadata.uid")
 NODE=$(echo $POD | jq -r ".spec.nodeName")
